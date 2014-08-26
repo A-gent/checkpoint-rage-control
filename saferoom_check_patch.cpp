@@ -40,19 +40,19 @@ BYTE * FindTarget(IGameConfig * gameConf)
 	BYTE * addr;
 	if(!gameConf->GetMemSig("CTerrorPlayer::UpdateZombieFrustration", (void**)&addr))
 	{
-		throw new PatchException("Couldn't find UpdateZombieFrustration in memory!");
+		throw PatchException("Couldn't find UpdateZombieFrustration in memory!");
 	}
 
 	int offset;
 	if(!gameConf->GetOffset("UpdateZombieFrustration_SaferoomCheck", &offset))
 	{
-		throw new PatchException("Couldn't read Saferoom Check Offset!");
+		throw PatchException("Couldn't read Saferoom Check Offset!");
 	}
 
 	addr = addr+offset;
 	if(*addr != CALL_OPCODE)
 	{
-		throw new PatchException("Saferoom Check offset seems to be incorrect");
+		throw PatchException("Saferoom Check offset seems to be incorrect");
 	}
 
 	return addr;
