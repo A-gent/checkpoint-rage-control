@@ -49,7 +49,8 @@ BYTE * FindTarget(IGameConfig * gameConf)
 		throw new PatchException("Couldn't read Saferoom Check Offset!");
 	}
 
-	if(*addr != JMP_8_OPCODE)
+	addr = addr+offset;
+	if(*addr != CALL_OPCODE)
 	{
 		throw new PatchException("Saferoom Check offset seems to be incorrect");
 	}

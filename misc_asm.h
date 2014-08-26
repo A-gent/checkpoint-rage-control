@@ -43,6 +43,7 @@
 #define JB_8_OPCODE 0x72
 #define JBE_8_OPCODE 0x76
 #define JMP_8_OPCODE 0xEB
+#define CALL_OPCODE 0xE8
 
 #define MOV_R32_RM32_OPCODE 0x8B
 #define MOV_R32_IMM32_OPCODE 0xB8
