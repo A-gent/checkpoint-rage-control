@@ -2,6 +2,20 @@
 {
 	"left4dead2"
 	{
+		"Addresses"
+		{
+			"SaferoomCheck_Sig"
+			{
+				"linux"
+				{
+					"signature" "CTerrorPlayer::UpdateZombieFrustration"
+				}
+				"windows"
+				{
+					"signature" "CTerrorPlayer::UpdateZombieFrustration"
+				}
+			}
+		}
 		"Offsets"
 		{
 			/* Offset into CTerrorPlayer::UpdateZombieFrustration */
