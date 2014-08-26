@@ -51,6 +51,11 @@ public OnPluginStart()
 	CheckCvarAndPatch(cvar);
 }
 
+public OnPluginEnd()
+{
+	Unpatch();
+}
+
 public OnCvarChange(Handle:convar, const String:oldValue[], const String:newValue[])
 {
 	CheckCvarAndPatch(convar);
@@ -60,12 +65,9 @@ CheckCvarAndPatch(Handle:convar)
 {
 	if(GetConVarBool(convar))
 	{
-		if(!IsPatched())
-		{
-			Patch();
-		}
+		Patch();
 	}
-	else if(IsPatched())
+	else 
 	{
 		Unpatch();
 	}
@@ -78,17 +80,25 @@ bool:IsPatched()
 
 Patch()
 {
-	for(new i =0; i < sizeof(PATCH_REPLACEMENT); i++)
+	if(!IsPatched())
 	{
-		StoreToAddress(g_pPatchTarget + Address:i, PATCH_REPLACEMENT[i], NumberType_Int8);
+		for(new i =0; i < sizeof(PATCH_REPLACEMENT); i++)
+		{
+			StoreToAddress(g_pPatchTarget + Address:i, PATCH_REPLACEMENT[i], NumberType_Int8);
+		}
+		g_bIsPatched = true;
 	}
 }
 
 Unpatch()
 {
-	for(new i =0; i < sizeof(ORIGINAL_BYTES); i++)
+	if(IsPatched())
 	{
-		StoreToAddress(g_pPatchTarget + Address:i, ORIGINAL_BYTES[i], NumberType_Int8);
+		for(new i =0; i < sizeof(ORIGINAL_BYTES); i++)
+		{
+			StoreToAddress(g_pPatchTarget + Address:i, ORIGINAL_BYTES[i], NumberType_Int8);
+		}
+		g_bIsPatched = false;
 	}
 }
 
